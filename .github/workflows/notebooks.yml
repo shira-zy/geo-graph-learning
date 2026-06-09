@@ -1,0 +1,44 @@
+# Papermill smoke-test for all demo notebooks.
+#
+# DEFERRED to v1.5 — currently a placeholder. Will be enabled after Unit 1 is
+# built and we know the realistic notebook runtime on a Colab-shaped runner.
+#
+# Plan:
+#   - Match Colab's Python version (3.11 as of mid-2026; check).
+#   - Run on a schedule (nightly) + on every push to main.
+#   - For each unit-N-*/demo.ipynb: install requirements/unit-N.txt, then
+#     `papermill --kernel python3 demo.ipynb /tmp/out.ipynb`.
+#   - Surface failures as GitHub issue comments.
+
+name: notebooks-smoke (DISABLED)
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 6 * * *'    # 06:00 UTC nightly
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - 'unit-*/demo.ipynb'
+  #     - 'requirements/**'
+  #     - 'setup_colab.py'
+
+jobs:
+  smoke:
+    if: false   # disabled until v1.5
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        unit: [unit-1, unit-2, unit-3, unit-4, unit-5]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install papermill
+      - run: pip install -r requirements/${{ matrix.unit }}.txt
+      - run: |
+          NB="${{ matrix.unit }}-*/demo.ipynb"
+          for f in $NB; do
+            papermill --kernel python3 "$f" "/tmp/$(basename $f)"
+          done
