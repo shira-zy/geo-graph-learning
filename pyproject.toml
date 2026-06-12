@@ -24,7 +24,8 @@ unit-1 = [
         "pyrosm",
         "igraph",
         "folium",
-        "mapclassify"
+        "mapclassify",
+        "gdown"
         ]
 unit-2 = [
     # Trajectory Mining — populated during unit-2 build
