@@ -24,10 +24,15 @@ Every demo notebook MUST run end-to-end on a fresh free-tier Colab runtime.
 Local execution (macOS, Windows) is the secondary target. If you change a
 notebook, you verify Colab still works before committing.
 
-### No solutions, ever
+### Reference solutions are provided — they are not answer keys
 
-This repo is read-only for students. Solution notebooks live in a private
-instructor repo. If you find yourself writing answer keys here, STOP.
+Each unit ships a reference solution notebook
+(`geoai-graph-unit<N>-solution.ipynb`) so you can see *a* complete, runnable
+path and confirm the task is feasible. It carries a disclaimer: it is
+AI-assisted, may be only static-checked, and the task is open-ended — there is
+no single correct answer. **Use it to check your reasoning, not to copy.** You
+are graded on your own direct → interpret → extend loop. Do NOT write new
+answer keys into this repo.
 
 ### Single source for dependencies
 
@@ -67,6 +72,36 @@ unit's `KNOWN_ISSUES.md` on failure. Fail fast, before any teaching content.
 Slides, notebooks, READMEs, code comments.
 
 ---
+
+## Tooling & data access (for you and your agent)
+
+Each unit lists its exact stack and data sources in its own
+`datasets.md` and `further-reading.md`. General rules:
+
+**Environment.** Dependencies live in `pyproject.toml` (per-unit extras).
+- **Local (macOS / Windows), recommended:** install `uv` (see `SETUP.md`), then
+  `uv sync --extra unit-<N>`. Run notebooks with that environment's kernel.
+- **Colab:** the notebook's first cell calls `setup_colab.py`, which installs
+  the unit's published `requirements/unit-<N>.txt`. Nothing to pre-install.
+- You may need to **add an environment layer yourself**: paths differ (Colab
+  uses `/content`; local uses your cwd), and data caches live in different
+  places. The notebooks handle the common cases; if you move data, tell your
+  agent the new path explicitly.
+
+**Unit 1 stack:** OSMnx v2, NetworkX, GeoPandas, Shapely, pyrosm, igraph,
+folium, mapclassify, requests, gdown.
+
+**Unit 1 data:** OpenStreetMap, fetched at runtime — no pre-staged files.
+- Primary: a **Geofabrik** regional extract (`israel-and-palestine-latest.osm.pbf`),
+  downloaded once (cached) and cut to a city bounding box **inline with pyrosm**.
+- The demo *showcases* the live OSMnx/Overpass pull idiom but does not depend on
+  it. A Google-Drive copy is a fallback. See `unit-1-graph-substrate/datasets.md`.
+
+**When directing your agent:** name the tool + operation in unit vocabulary
+("simplified, UTM-projected, LCC primal graph; length-weighted betweenness via
+igraph"), point it at `datasets.md` for how to load data, and at
+`further-reading.md` for the concepts. That is enough for it to build the
+practice solution.
 
 ## Working with this repo
 

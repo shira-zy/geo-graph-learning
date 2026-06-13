@@ -109,16 +109,31 @@ def setup_unit(unit: str) -> None:
     print(f"[setup_colab] Setting up {unit} on Colab…")
 
     # Layer A — common path: install from the unit's pinned requirements.
+    # A missing/unfetchable/empty requirements file is FATAL: without it nothing
+    # installs and the smoke-test cell fails later with a confusing
+    # ModuleNotFoundError. Fail loudly HERE, at the real cause.
     try:
         reqs = _fetch_requirements(unit)
     except Exception as exc:
-        print(f"[setup_colab] WARN: failed to fetch requirements/{unit}.txt: {exc}")
-        reqs = []
+        raise RuntimeError(
+            f"[setup_colab] Could not fetch requirements/{unit}.txt from "
+            f"{REPO_RAW}/{REPO_REF}/requirements/{unit}.txt ({exc}).\n"
+            f"The unit's requirements are probably not published on "
+            f"'{REPO_REF}' yet. Fix: run scripts/export-requirements.sh and "
+            f"push requirements/{unit}.txt, or set GEO_COURSE_REF to a branch/"
+            f"tag that has it. See the unit's KNOWN_ISSUES.md."
+        ) from exc
 
-    if reqs:
-        before = _installed_versions(_CORE_PKGS)
-        _pip_install(*reqs)
-        _warn_if_core_changed(before)
+    if not reqs:
+        raise RuntimeError(
+            f"[setup_colab] requirements/{unit}.txt is empty — nothing to "
+            f"install. Populate the '{unit}' extra in pyproject.toml and run "
+            f"scripts/export-requirements.sh before running this notebook."
+        )
+
+    before = _installed_versions(_CORE_PKGS)
+    _pip_install(*reqs)
+    _warn_if_core_changed(before)
 
     # Layer B — unit-specific quirks.
     handler = {

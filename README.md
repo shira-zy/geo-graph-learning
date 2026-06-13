@@ -61,6 +61,26 @@ If you're stuck on something async:
 3. The instructor can clone your fork and see your actual code + your
    reasoning — much more useful than a screenshot.
 
-## License
+## Two ways to run
 
-TODO — set before first public release.
+Every unit runs both ways — pick whichever fits you:
+
+- **Local with `uv` (recommended):** `uv sync --extra unit-<N>`, then open the
+  notebook with that env's kernel. macOS + Windows. See [`SETUP.md`](./SETUP.md).
+- **Colab (one click):** open the notebook's "Open in Colab" badge; the first
+  cell runs `setup_colab.py`, which installs the unit's published
+  `requirements/unit-<N>.txt`. Nothing to pre-install.
+
+## What each unit ships
+
+Slides (PDF + HTML), a Colab-first demo notebook, `practice-task.md`,
+`homework.md`, a **reference solution notebook** (a strong path, not an answer
+key — see `NOTICE.md`), `datasets.md` (data sources + how to load them), and
+`further-reading.md` (AI-friendly source summaries).
+
+## Rights & disclaimer
+
+See [`NOTICE.md`](./NOTICE.md) — © 2026 Ben Galon, all rights reserved
+(Geo-AI course, The Arena). Materials are AI-assisted and instructor-reviewed;
+verify before relying on them. Provided to enrolled students; not for
+redistribution.
