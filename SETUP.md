@@ -8,6 +8,21 @@ Complete this before week 1 of the course. Allow ~30 minutes.
 - Comfort with the command line (Terminal on macOS, PowerShell or WSL on Windows).
 - Python 3.11+ (we'll install via `uv` if you don't have it).
 
+## Two ways to run (choose consciously)
+
+Every demo + solution notebook runs both ways. Decide which you'll use:
+
+| | Local with `uv` (recommended) | Colab (one click) |
+|---|---|---|
+| **Setup** | `uv sync --extra unit-<N>` (this guide) | none — first cell runs `setup_colab.py` |
+| **Where** | your machine (macOS / Windows) | browser, free GPU/CPU runtime |
+| **Best for** | repeat work, your own data, offline | a quick look, no local install |
+
+Local gives you a persistent environment and your own files; Colab is
+zero-install but resets each session. The same notebook code runs in both —
+only the first setup cell differs. The rest of this guide sets up the **local**
+path; for Colab just open the notebook's "Open in Colab" badge.
+
 ## 1. Fork this repo
 
 Click **Fork** at the top right of
