@@ -28,24 +28,23 @@ unit-1 = [
     "gdown",
 ]
 unit-2 = [
-    # Trajectory Mining — HMM map matching demo
-    "leuvenmapmatching",  # HMM map matcher (DistanceMatcher, InMemMap) — headline
-    "osmnx>=2.0",         # corridor road graph from bbox
-    "geopandas>=1.0",     # spatial joins / reprojection
-    "shapely>=2.0",       # geometry
-    "pyproj",             # metric CRS (EPSG:2039) — sigma/max_dist in meters
-    "rtree",              # spatial index (Leuven candidate search + geopandas)
-    "scipy",              # numerics
-    "networkx>=3.0",      # graph ops on the osmnx graph
-    "filterpy",           # 2D constant-velocity Kalman (step 3)
-    "tslearn",            # DTW teaser (step 7→8)
-    "scikit-image",       # skeletonize() for the map-inference mini-pipeline (step 8)
-    "folium",             # interactive maps (viz-rich policy)
-    "mapclassify",        # choropleth binning (edge-usage map)
-    "branca",             # colormaps/legends for folium
-    "contextily",         # static basemap fallback
-    "pyarrow",            # read the parquet GPS artifact
-    "gdown",              # fetch the Drive artifact (+ optional regen cell)
+    "leuvenmapmatching",
+    "osmnx>=2.0,<3.0",
+    "geopandas>=1.0",
+    "shapely>=2.0",
+    "pyproj",
+    "rtree",
+    "scipy",
+    "networkx>=3.0",
+    "filterpy",
+    "tslearn",
+    "scikit-image",
+    "folium",
+    "mapclassify",
+    "branca",
+    "contextily",
+    "pyarrow",
+    "gdown",
 ]
 unit-3 = [
     # Statistical Baselines — populated during unit-3 build
