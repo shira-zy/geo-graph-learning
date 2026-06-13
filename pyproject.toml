@@ -39,6 +39,7 @@ unit-2 = [
     "networkx>=3.0",      # graph ops on the osmnx graph
     "filterpy",           # 2D constant-velocity Kalman (step 3)
     "tslearn",            # DTW teaser (step 7→8)
+    "scikit-image",       # skeletonize() for the map-inference mini-pipeline (step 8)
     "folium",             # interactive maps (viz-rich policy)
     "mapclassify",        # choropleth binning (edge-usage map)
     "branca",             # colormaps/legends for folium
