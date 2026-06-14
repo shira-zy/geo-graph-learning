@@ -48,8 +48,15 @@ unit-2 = [
     "gdown",              # fetch the Drive artifact (+ optional regen cell)
 ]
 unit-3 = [
-    # Statistical Baselines — populated during unit-3 build
-    # (was syllabus's Unit 4; renumbered to teach order)
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+    "statsmodels>=0.14      # ADF, ACF/PACF, the one transparent SARIMAX fit + diagnostics + Kalman gesture",
+    "statsforecast>=1.7     # AutoARIMA (numba-JIT) + HistoricAverage/SeasonalNaive; the walk-forward loop",
+    "pyarrow>=14            # pd.read_parquet of the curated slice (runtime dep, not an explicit import)",
+    "folium>=0.15           # Beat-5 interactive map (target + upstream sensor)",
+    "gdown>=5.0             # fetch the curated parquet from the course Google Drive (primary)",
+    "</content>",
 ]
 unit-4 = [
     # Dynamic Navigation — populated during unit-4 build
