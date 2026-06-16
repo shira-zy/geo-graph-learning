@@ -65,11 +65,21 @@ If you're stuck on something async:
 
 Every unit runs both ways — pick whichever fits you:
 
-- **Local with `uv` (recommended):** `uv sync --extra unit-<N>`, then open the
-  notebook with that env's kernel. macOS + Windows. See [`SETUP.md`](./SETUP.md).
+- **Local with `uv` (recommended):** `uv sync --extra unit-<N>`, then launch
+  Jupyter *from inside that env* so it uses the right kernel automatically —
+  identical on macOS and Windows:
+
+  ```bash
+  uv run --extra unit-<N> jupyter lab
+  ```
+
+  (Launching a system `jupyter` instead is the #1 "imports fail after `uv sync`"
+  trap.) Full walkthrough in [`SETUP.md`](./SETUP.md#7-open-a-notebook-locally-with-the-right-kernel).
 - **Colab (one click):** open the notebook's "Open in Colab" badge; the first
   cell runs `setup_colab.py`, which installs the unit's published
-  `requirements/unit-<N>.txt`. Nothing to pre-install.
+  `requirements/unit-<N>.txt`. Nothing to pre-install. To keep your edits, open
+  the notebook **from your own fork** and `File → Save a copy in GitHub` — see
+  [`SETUP.md`](./SETUP.md#running-on-colab-and-connecting-it-to-github).
 
 ## What each unit ships
 

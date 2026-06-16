@@ -139,19 +139,40 @@ claude
 
 If you don't have Node.js, install it from [nodejs.org](https://nodejs.org/) first.
 
-## 7. Verify everything works
+## 7. Open a notebook locally (with the right kernel)
 
-Once Unit 1 is published, you'll be able to:
+The #1 local gotcha is opening a notebook with the **wrong Python** — a system
+Jupyter that can't see the libraries `uv` just installed, so imports fail even
+though `uv sync` succeeded. Avoid it entirely by launching Jupyter **from inside
+the `uv` environment**. Then the running env *is* the kernel — there's nothing to
+select.
 
 ```bash
-# From the repo root, open the demo notebook
-cd unit-1-graph-substrate
-jupyter notebook geoai-graph-unit1.ipynb
+# From the repo root. The --extra must match the unit you're opening.
+uv run --extra unit-1 jupyter lab
 ```
 
+This works **identically on macOS and Windows** (PowerShell): `uv run` resolves
+the environment, so you never activate a venv or pick a kernel by hand. Jupyter
+Lab opens in your browser; navigate to the notebook (e.g.
+`unit-1-graph-substrate/geoai-graph-unit1.ipynb`) and open it. The kernel in the
+top-right will be the project's Python — exactly the env you synced.
+
+> Prefer classic Notebook or an editor with its own Jupyter (e.g. VS Code)?
+> Register the env as a named kernel once, then pick it from the kernel list:
+> ```bash
+> uv run --extra unit-1 python -m ipykernel install --user \
+>   --name geo-graph --display-name "Geo-Graph (uv)"
+> ```
+> Re-run with a different `--extra` only matters at install time; one kernel
+> serves every unit you've synced into the same `.venv`.
+
 Run the **smoke-test cell** (always near the top of every demo notebook).
-If it passes, your local env is good. If it fails, check the unit's
-`KNOWN_ISSUES.md` first.
+If it passes, your local env is good. If it fails:
+
+- Confirm the kernel (top-right in Jupyter) is the project Python, not a global
+  one. If you launched with `uv run … jupyter lab`, it already is.
+- Check the unit's `KNOWN_ISSUES.md` for platform-specific library notes.
 
 ## Workflow during the course
 
@@ -190,12 +211,42 @@ If you get stuck:
 3. Include your decision log — it shows what you were trying to do, which
    helps far more than a code snippet alone.
 
-### Colab note
+### Running on Colab (and connecting it to GitHub)
 
-Every demo notebook has an "Open in Colab" badge at the top. Click it to
-launch in your browser with zero local setup. Colab pre-installs PyTorch
-with CUDA; for Unit 5 (GNNs) you'll want **Runtime → Change runtime type →
-T4 GPU**.
+Colab is the zero-install path: open a notebook in your browser, the first cell
+runs `setup_colab.py`, and you're going. Two ways in — pick based on whether you
+want to **keep your edits**.
+
+**A. Just look / run the upstream notebook (read-only).**
+Click the **"Open in Colab"** badge at the top of any demo notebook. This opens
+the *course* copy. Edits are **not saved** unless you do `File → Save a copy in
+Drive`. Fine for a quick run; not where your graded work should live.
+
+**B. Open a notebook from your own fork (edits go back to GitHub).**
+This is the one to set up, so your practice/homework notebooks live in your repo.
+
+1. **Authorize Colab once.** In Colab: `File → Open notebook → GitHub` tab. Click
+   the prompt to **authorize** Google Colab to access GitHub. If you took the
+   **private-repo** route (SETUP step 1), also tick **"Include private repos"**
+   when GitHub asks.
+2. **Open your notebook.** In that same `GitHub` tab, type your
+   `<your-username>/geo-graph-learning`, choose the branch (`main`), and pick the
+   notebook. Or just edit the URL directly:
+
+   ```
+   https://colab.research.google.com/github/<your-username>/geo-graph-learning/blob/main/unit-1-graph-substrate/geoai-graph-unit1.ipynb
+   ```
+
+3. **Save your changes back to GitHub.** `File → Save a copy in GitHub`. Pick your
+   fork + branch, write a commit message, save. The notebook is now committed to
+   your repo — `git pull` to bring it down locally, or just keep working in Colab.
+
+> Tip: do your real work in the unit's `student-work/` folder (copy the demo
+> there first, or save your own notebook into it) so syncing new upstream lessons
+> never conflicts with your edits.
+
+**GPU runtimes.** Colab pre-installs PyTorch with CUDA; for Unit 5 (GNNs) switch
+to a GPU with **Runtime → Change runtime type → T4 GPU**.
 
 ## Troubleshooting
 
