@@ -109,7 +109,17 @@ uv sync --extra all
 
 # OR install only what you need for one unit:
 uv sync --extra unit-1
+uv sync --extra unit-2   # Trajectory Mining
 ```
+
+> **Available units.** Each published unit lives in its own folder with a
+> rendered theory deck (`theory.pdf` / `theory.html`), a Colab-first demo
+> notebook, and a reference solution:
+> - **Unit 1 — Graph Substrate:** `unit-1-graph-substrate/geoai-graph-unit1.ipynb` (`--extra unit-1`)
+> - **Unit 2 — Trajectory Mining:** `unit-2-trajectory-mining/geoai-graph-unit2.ipynb` (`--extra unit-2`)
+>
+> Install the extra that matches the unit you're opening (the examples below use
+> Unit 1; swap `unit-1` → `unit-2` to open the Trajectory Mining notebook).
 
 `uv` creates a `.venv/` automatically. Activate it if you want:
 

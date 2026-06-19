@@ -1,0 +1,320 @@
+% Unit 2 — Trajectory Mining: machine-readable citations.
+% This is the BibTeX that pairs with further-reading.md — the raw sources behind
+% the theory deck, demo, and practice. Every entry carries a DOI or URL so you
+% (and your agent) can cite or follow any source directly. Plain-language
+% summaries of each item live in further-reading.md.
+
+% =====================================================================
+% MAP MATCHING — classical
+% =====================================================================
+
+@inproceedings{newson2009hmm,
+  author    = {Newson, Paul and Krumm, John},
+  title     = {Hidden {Markov} Map Matching Through Noise and Sparseness},
+  booktitle = {Proceedings of the 17th ACM SIGSPATIAL International Conference
+               on Advances in Geographic Information Systems (GIS '09)},
+  pages     = {336--343},
+  year      = {2009},
+  publisher = {ACM},
+  doi       = {10.1145/1653771.1653818}
+}
+
+@inproceedings{lou2009lowsampling,
+  author    = {Lou, Yin and Zhang, Chengyang and Zheng, Yu and Xie, Xing and
+               Wang, Wei and Huang, Yan},
+  title     = {Map-Matching for Low-Sampling-Rate {GPS} Trajectories},
+  booktitle = {Proceedings of the 17th ACM SIGSPATIAL International Conference
+               on Advances in Geographic Information Systems (GIS '09)},
+  pages     = {352--361},
+  year      = {2009},
+  publisher = {ACM},
+  doi       = {10.1145/1653771.1653820}
+}
+
+@article{quddus2007survey,
+  author  = {Quddus, Mohammed A. and Ochieng, Washington Y. and Noland, Robert B.},
+  title   = {Current Map-Matching Algorithms for Transport Applications:
+             State-of-the Art and Future Research Directions},
+  journal = {Transportation Research Part C: Emerging Technologies},
+  volume  = {15},
+  number  = {5},
+  pages   = {312--328},
+  year    = {2007},
+  doi     = {10.1016/j.trc.2007.05.002}
+}
+
+% =====================================================================
+% MAP MATCHING — recent / learned
+% =====================================================================
+
+@article{jiang2022l2mm,
+  author  = {Jiang, Linli and Chen, Chao and Chen, Chaocan},
+  title   = {{L2MM}: Learning to Map Matching with Deep Models for
+             Low-Quality {GPS} Trajectory Data},
+  journal = {ACM Transactions on Knowledge Discovery from Data (TKDD)},
+  volume  = {17},
+  number  = {3},
+  pages   = {1--25},
+  year    = {2023},
+  doi     = {10.1145/3550486}
+}
+
+@article{mohammadi2024mmformer,
+  author  = {Mohammadi, Sevin and Smyth, Andrew W.},
+  title   = {{NLP}-Enabled Trajectory Map-Matching in Urban Road Networks
+             Using a Transformer-Based Encoder-Decoder},
+  journal = {arXiv preprint},
+  year    = {2024},
+  note    = {Extended as MMformer, IEEE TITS 2025},
+  url     = {https://arxiv.org/abs/2404.12460}
+}
+
+@article{mohammadi2025mmformerTITS,
+  author  = {Mohammadi, Sevin and Smyth, Andrew W.},
+  title   = {{MMformer}: Transformer-Based Trajectory Map-Matching Model for
+             Large-Scale Road Networks},
+  journal = {IEEE Transactions on Intelligent Transportation Systems},
+  year    = {2025},
+  doi     = {10.1109/TITS.2025.3565009}
+}
+
+@inproceedings{shi2023lhmm,
+  author    = {Shi, Weijie and Zhu, Jiajie and Zhang, Tao and others},
+  title     = {{LHMM}: A Learning Enhanced {HMM} Model for Cellular Trajectory
+               Map Matching},
+  booktitle = {2023 IEEE 39th International Conference on Data Engineering (ICDE)},
+  year      = {2023},
+  doi       = {10.1109/ICDE55515.2023.00207}
+}
+
+@inproceedings{han2026diffmm,
+  author    = {Han, Chenxu and Yang, Sean Bin and Hu, Jilin},
+  title     = {{DiffMM}: Efficient Method for Accurate Noisy and Sparse
+               Trajectory Map Matching via One Step Diffusion},
+  booktitle = {Proceedings of the 40th AAAI Conference on Artificial
+               Intelligence (AAAI '26)},
+  year      = {2026},
+  doi       = {10.1609/aaai.v40i17.38498},
+  note      = {Preprint arXiv:2601.08482; official code at
+               https://github.com/decisionintelligence/DiffMM (python 3.11,
+               torch 2.4, geopandas, networkx; bundled Porto + Beijing toy
+               datasets; no pretrained checkpoint; no LICENSE file)},
+  url       = {https://arxiv.org/abs/2601.08482}
+}
+
+% =====================================================================
+% MAP INFERENCE — classical
+% =====================================================================
+
+@inproceedings{cao2009routable,
+  author    = {Cao, Lili and Krumm, John},
+  title     = {From {GPS} Traces to a Routable Road Map},
+  booktitle = {Proceedings of the 17th ACM SIGSPATIAL International Conference
+               on Advances in Geographic Information Systems (GIS '09)},
+  pages     = {3--12},
+  year      = {2009},
+  publisher = {ACM},
+  doi       = {10.1145/1653771.1653776}
+}
+
+@article{biagioni2012survey,
+  author  = {Biagioni, James and Eriksson, Jakob},
+  title   = {Inferring Road Maps from Global Positioning System Traces:
+             Survey and Comparative Evaluation},
+  journal = {Transportation Research Record},
+  volume  = {2291},
+  number  = {1},
+  pages   = {61--71},
+  year    = {2012},
+  doi     = {10.3141/2291-08}
+}
+
+@article{davies2006mapgen,
+  author  = {Davies, Jonathan J. and Beresford, Alastair R. and Hopper, Andy},
+  title   = {Scalable, Distributed, Real-Time Map Generation},
+  journal = {IEEE Pervasive Computing},
+  volume  = {5},
+  number  = {4},
+  pages   = {47--54},
+  year    = {2006},
+  doi     = {10.1109/MPRV.2006.83}
+}
+
+@article{ahmed2015comparison,
+  author  = {Ahmed, Mahmuda and Karagiorgou, Sophia and Pfoser, Dieter and
+             Wenk, Carola},
+  title   = {A Comparison and Evaluation of Map Construction Algorithms Using
+             Vehicle Tracking Data},
+  journal = {GeoInformatica},
+  volume  = {19},
+  number  = {3},
+  pages   = {601--632},
+  year    = {2015},
+  doi     = {10.1007/s10707-014-0222-6}
+}
+
+% =====================================================================
+% MAP INFERENCE — recent / learned
+% =====================================================================
+
+@inproceedings{eftelioglu2022ringnet,
+  author    = {Eftelioglu, Emre and Garg, Raj and Kango, Vincent and
+               Gohil, Chirag and Chowdhury, Ahmed R.},
+  title     = {{RING-Net}: Road Inference from {GPS} Trajectories Using a
+               Deep Segmentation Network},
+  booktitle = {Proceedings of the 10th ACM SIGSPATIAL International Workshop on
+               Analytics for Big Geospatial Data (BigSpatial '22)},
+  pages     = {17--26},
+  year      = {2022},
+  publisher = {ACM},
+  doi       = {10.1145/3557917.3567617}
+}
+
+@inproceedings{dgmap2025,
+  author    = {Liu, Jiafan and Mao, Jiali and Wu, Wenyu and others},
+  title     = {Bridging the Gap Between Sparsity and Redundancy: A
+               Dual-Decoding Framework with Global Context for Map Inference},
+  booktitle = {Proceedings of the 34th ACM International Conference on
+               Information and Knowledge Management (CIKM '25)},
+  year      = {2025},
+  publisher = {ACM},
+  doi       = {10.1145/3746252.3761537}
+}
+
+@inproceedings{cdmap2025,
+  author    = {Wu, Wenyu and Mao, Jiali and Liu, Jiafan and Tong, Yixiao and
+               others},
+  title     = {{CDMap}: Complementarity and Disparity-Aware Map Inference
+               Quality Enhancement},
+  booktitle = {2025 IEEE 41st International Conference on Data Engineering (ICDE)},
+  year      = {2025},
+  doi       = {10.1109/ICDE65448.2025.00316}
+}
+
+@inproceedings{he2018roadrunner,
+  author    = {He, Songtao and Bastani, Favyen and Abbar, Sofiane and
+               Alizadeh, Mohammad and Balakrishnan, Hari and Chawla, Sanjay and
+               Madden, Samuel},
+  title     = {{RoadRunner}: Improving the Precision of Road Network Inference
+               from {GPS} Trajectories},
+  booktitle = {Proceedings of the 26th ACM SIGSPATIAL International Conference
+               on Advances in Geographic Information Systems (SIGSPATIAL '18)},
+  pages     = {3--12},
+  year      = {2018},
+  publisher = {ACM},
+  doi       = {10.1145/3274895.3274974}
+}
+
+% =====================================================================
+% SIMILARITY + CLUSTERING
+% =====================================================================
+
+@inproceedings{berndt1994dtw,
+  author    = {Berndt, Donald J. and Clifford, James},
+  title     = {Using Dynamic Time Warping to Find Patterns in Time Series},
+  booktitle = {Proceedings of the AAAI-94 Workshop on Knowledge Discovery in
+               Databases (KDD Workshop)},
+  pages     = {359--370},
+  year      = {1994},
+  publisher = {AAAI Press},
+  url       = {https://cdn.aaai.org/Workshops/1994/WS-94-03/WS94-03-031.pdf}
+}
+
+@article{toohey2015similarity,
+  author  = {Toohey, Kevin and Duckham, Matt},
+  title   = {Trajectory Similarity Measures},
+  journal = {SIGSPATIAL Special},
+  volume  = {7},
+  number  = {1},
+  pages   = {43--50},
+  year    = {2015},
+  publisher = {ACM},
+  doi     = {10.1145/2782759.2782767}
+}
+
+% =====================================================================
+% KALMAN / STATE-SPACE
+% =====================================================================
+
+@techreport{welch2006kalman,
+  author      = {Welch, Greg and Bishop, Gary},
+  title       = {An Introduction to the {Kalman} Filter},
+  institution = {University of North Carolina at Chapel Hill,
+                 Department of Computer Science},
+  number      = {TR 95-041},
+  year        = {2006},
+  url         = {https://www.cs.unc.edu/~welch/media/pdf/kalman_intro.pdf}
+}
+
+% =====================================================================
+% DATASETS
+% =====================================================================
+
+@inproceedings{zheng2010geolife,
+  author    = {Zheng, Yu and Xie, Xing and Ma, Wei-Ying},
+  title     = {{GeoLife}: A Collaborative Social Networking Service Among User,
+               Location and Trajectory},
+  booktitle = {IEEE Data Engineering Bulletin},
+  volume    = {33},
+  number    = {2},
+  pages     = {32--39},
+  year      = {2010},
+  url       = {https://www.microsoft.com/en-us/research/publication/geolife-a-collaborative-social-networking-service-among-user-location-and-trajectory/}
+}
+
+@misc{portotaxi2015,
+  author       = {{Geo-spatial Data Mining Group, University of Porto}},
+  title        = {Taxi Service Trajectory - Prediction Challenge,
+                  {ECML/PKDD} 2015},
+  howpublished = {UCI Machine Learning Repository},
+  year         = {2015},
+  doi          = {10.24432/C55W25}
+}
+
+@misc{openbus2023,
+  author       = {{The Public Knowledge Workshop (HaSadna)}},
+  title        = {Open Bus: Analysing Israel's Public Transport Data
+                  ({SIRI} Real-Time GPS Archive)},
+  howpublished = {GitHub repository},
+  year         = {2023},
+  url          = {https://github.com/hasadna/open-bus}
+}
+
+% =====================================================================
+% LIBRARIES / TOOLS
+% =====================================================================
+
+@misc{leuvenmapmatching,
+  author       = {Meert, Wannes and Verbeke, Mathias},
+  title        = {{LeuvenMapMatching}: Leuven.MapMatching Toolbox for Aligning
+                  GPS Measurements to Locations on a Map},
+  howpublished = {GitHub repository (v1.1.x)},
+  year         = {2021},
+  url          = {https://github.com/wannesm/LeuvenMapMatching}
+}
+
+@misc{fmm2018,
+  author       = {Yang, Can and Gidofalvi, Gyozo},
+  title        = {{FMM}: Fast Map Matching, an Open Source Framework in C++},
+  howpublished = {GitHub repository},
+  year         = {2018},
+  doi          = {10.1080/13658816.2017.1400548}
+}
+
+@misc{mappymatch,
+  author       = {{National Renewable Energy Laboratory (NREL)}},
+  title        = {{mappymatch}: Pure-Python Package for Map Matching},
+  howpublished = {GitHub repository (v0.7.x)},
+  year         = {2025},
+  url          = {https://github.com/NREL/mappymatch}
+}
+
+@misc{mapconstruction2015,
+  author       = {Ahmed, Mahmuda and Karagiorgou, Sophia and Pfoser, Dieter and
+                  Wenk, Carola},
+  title        = {Map Construction Algorithms: Benchmark Datasets, Source Code
+                  and Evaluation Measures},
+  howpublished = {mapconstruction.org},
+  year         = {2015},
+  url          = {http://www.mapconstruction.org}
+}
