@@ -76,9 +76,11 @@ unit-4 = [
     "gdown",
 ]
 unit-5 = [
-    # GNNs — populated during unit-5 build
-    # Note: do NOT pin torch here; Colab manages its own.
-    # `setup_colab.py` handles runtime detection for PyG wheels.
+    "scikit-learn",
+    "matplotlib",
+    "folium",
+    "gdown>=5.0",
+    "numpy>=1.24",
 ]
 all = [
     # Union of all built units, so `uv sync --extra all` installs everything.

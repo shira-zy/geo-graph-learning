@@ -2,4 +2,8 @@
 # Regenerate: bash scripts/export-requirements.sh
 # Colab-slim: ONLY this unit's direct libraries (floors). Colab keeps its
 # own numpy/pandas/scipy — we never repin the core stack (avoids ABI breaks).
-# unit-5 has no dependencies yet.
+scikit-learn
+matplotlib
+folium
+gdown>=5.0
+numpy>=1.24
