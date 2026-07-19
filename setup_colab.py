@@ -202,23 +202,12 @@ def _unit_5_setup() -> None:
     cuda_v = (torch.version.cuda or "").replace(".", "")
     cuda_suffix = f"cu{cuda_v}" if cuda_v else "cpu"
 
-    print(f"  detected torch={torch_v} cuda={cuda_v or 'none'}")
-    print(f"  installing torch_geometric (+ optional scatter/sparse for {cuda_suffix})")
+    print(f"  detected torch={torch_v} cuda={cuda_v or 'none'} ({cuda_suffix})")
+    print("  installing torch_geometric + torch-geometric-temporal")
 
+    # PyG 2.4+ does not hard-require torch_scatter/torch_sparse, and building
+    # those wheels is the #1 Colab failure for this unit — install neither.
     _pip_install("torch_geometric")
-
-    # Optional accelerator extensions — PyG 2.4+ does not hard-require them.
-    # Try to install but don't fail the whole setup if wheels are unavailable.
-    try:
-        _pip_install(
-            "torch_scatter",
-            "torch_sparse",
-            "-f",
-            f"https://data.pyg.org/whl/torch-{torch_v}+{cuda_suffix}.html",
-        )
-    except subprocess.CalledProcessError:
-        print("  WARN: torch_scatter/sparse wheels not available — continuing without")
-
     _pip_install("torch-geometric-temporal")
 
 
