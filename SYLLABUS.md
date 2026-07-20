@@ -64,6 +64,18 @@ the inverse of the original syllabus PDF.
 🔬 **Preview** — the demo is available so you can look ahead, but the content **may
 still change** before we teach the unit. Treat preview material as a draft.
 
+### Two bookend sessions
+
+The five units are wrapped by two short slides-only sessions (no demo, practice,
+or homework):
+
+- **[Unit 0 — Course intro](unit-0-course-intro/)** (~15 min, once before Unit 1) —
+  how the course works: the North Star, the rubric, and the fork/work/share
+  workflow.
+- **[Unit 6 — Course closing](unit-6-course-closing/)** (~30 min, once after Unit 5) —
+  the arc recap (one slide per unit → the single pipeline), working with AI on
+  your own projects, and the before/after mirror of where we started.
+
 ### One thread runs through the course
 
 A real-city **bus archive** (sparse GPS pings) is the spine that connects the
