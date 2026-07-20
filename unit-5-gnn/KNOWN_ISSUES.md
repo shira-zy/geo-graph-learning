@@ -58,13 +58,37 @@ installs against Colab's *current* torch; (2) confirm the setup is doing runtime
 torch-version detection and **not** pinning torch; (3) if a fresh Colab torch bump
 outran the PyG-Temporal release, fall back to PyG alone + a hand-rolled GCN+GRU.
 
-### If the setup cell emits a wall of red about `torch_scatter` / `torch_sparse` wheels
-These compiled extensions are **optional** (PyG ≥2.4 uses native torch scatter;
-PyG is deprecating `SparseTensor`) and are the **#1 Colab install failure**. The
-notebook imports `torch_scatter` **only inside a guarded try/except** — its
-absence is a non-fatal warning, and the smoke test prints
-`torch_scatter absent (fine — native scatter)`. **Do:** ignore the wheel error;
-the demo does not need them.
+### `ModuleNotFoundError: No module named 'torch_sparse'` on `import torch_geometric_temporal`
+This is the **#1 Colab install failure**, and it bites at **import time**, not
+just install time. Even though T-GCN / A3T-GCN never use them,
+`torch-geometric-temporal`'s package `__init__` **eagerly imports** `torch_sparse` /
+`torch_scatter` (via its EvolveGCN modules: `from torch_sparse import SparseTensor`).
+So if those compiled extensions aren't present, **every**
+`import torch_geometric_temporal` — including the smoke test — dies with:
+```
+File ".../torch_geometric_temporal/nn/recurrent/evolvegcno.py", line 7
+    from torch_sparse import SparseTensor
+ModuleNotFoundError: No module named 'torch_sparse'
+```
+And you can't just "install them": there is often **no prebuilt wheel** for Colab's
+exact torch build, so `pip install torch_sparse` falls back to a **source compile
+that hangs for many minutes** (the symptom that looks like the setup cell is stuck
+on installing `torch-geometric-temporal`).
+
+**The fix is automatic — you should not hit this on a fresh Colab.** The course
+models run on PyG's **native scatter** over `edge_index`, so `torch_sparse` /
+`torch_scatter` are only needed as *names* on the import path.
+`setup_colab.py::_unit_5_setup()` installs **prebuilt wheels only**
+(`--only-binary=:all:`, never compiling from source) and, if they are still not
+importable, writes **lightweight stubs** so the import chain resolves
+(`_ensure_scatter_sparse_importable` + a `--no-deps` temporal install +
+`_verify_temporal_imports`). Nothing to do on a fresh Colab.
+
+**If you are on an older `setup_colab.py`** and hit this: restart the runtime
+(Runtime → Restart) and re-run the setup cell so the current helper runs. **Do
+NOT** `pip install torch_scatter torch_sparse` without `--only-binary=:all:` on
+Colab — that is what triggers the multi-minute hang. The few temporal models that
+genuinely need the real extensions (EvolveGCN, etc.) are not used in this unit.
 
 ### If `import torch_geometric_temporal` fails on **Windows**
 PyG-Temporal pulls `torch_geometric`, which has Windows wheels, but the geo/DL
