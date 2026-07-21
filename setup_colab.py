@@ -187,10 +187,74 @@ def _unit_4_setup() -> None:
         print("  pandana unavailable — notebook will use NetworkX fallback")
 
 
+# Minimal stand-ins so `from torch_sparse import SparseTensor` (and any
+# torch_scatter symbol) succeed at IMPORT time. torch-geometric-temporal's
+# package __init__ eagerly imports these (via its EvolveGCN modules), but the
+# models this course uses (T-GCN, A3T-GCN) never execute them — they run on PyG's
+# native scatter over edge_index. A stub that raises only if actually called is
+# safe, and avoids the fragile source build that is the #1 Colab install failure.
+_TORCH_SPARSE_STUB = (
+    "class SparseTensor:  # dummy — unused by TGCN/A3TGCN (native scatter path)\n"
+    "    def __init__(self, *a, **k):\n"
+    "        raise NotImplementedError('stub torch_sparse.SparseTensor')\n"
+    "    @classmethod\n"
+    "    def from_edge_index(cls, *a, **k):\n"
+    "        raise NotImplementedError('stub torch_sparse.SparseTensor.from_edge_index')\n"
+    "def __getattr__(name):\n"
+    "    def _f(*a, **k):\n"
+    "        raise NotImplementedError('stub torch_sparse.' + name)\n"
+    "    return _f\n"
+)
+_TORCH_SCATTER_STUB = (
+    "def __getattr__(name):\n"
+    "    def _f(*a, **k):\n"
+    "        raise NotImplementedError('stub torch_scatter.' + name)\n"
+    "    return _f\n"
+)
+
+
+def _ensure_scatter_sparse_importable() -> None:
+    """If the compiled extensions aren't importable, write lightweight stub
+    packages into site-packages so torch-geometric-temporal can be imported."""
+    import importlib
+    import torch_geometric  # installed just above; gives us the site-packages dir
+
+    site_dir = os.path.dirname(os.path.dirname(torch_geometric.__file__))
+    for name, body in (("torch_sparse", _TORCH_SPARSE_STUB),
+                       ("torch_scatter", _TORCH_SCATTER_STUB)):
+        try:
+            importlib.import_module(name)
+            continue                       # real (or already-stubbed) — leave it
+        except Exception:
+            pass                           # absent or broken — stub it
+        pkg_dir = os.path.join(site_dir, name)
+        os.makedirs(pkg_dir, exist_ok=True)
+        with open(os.path.join(pkg_dir, "__init__.py"), "w") as fh:
+            fh.write(body)
+        print(f"  stubbed {name} (compiled extension absent; native scatter at runtime)")
+
+
+def _verify_temporal_imports() -> None:
+    try:
+        import torch_geometric_temporal  # noqa: F401
+        from torch_geometric_temporal.nn.recurrent import TGCN, A3TGCN  # noqa: F401
+        print("  ✓ torch_geometric_temporal imports (TGCN / A3TGCN available)")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  ⚠ torch_geometric_temporal still fails to import: {exc}\n"
+              "    See unit-5 KNOWN_ISSUES.md → 'scatter/sparse import' gotcha.")
+
+
 def _unit_5_setup() -> None:
     """Spatio-Temporal GNNs — PyTorch Geometric (Temporal).
 
     Match PyG wheels to Colab's torch+CUDA at runtime. Do NOT pin torch.
+
+    torch-geometric-temporal's package __init__ EAGERLY imports torch_sparse /
+    torch_scatter (via EvolveGCN) even though T-GCN / A3T-GCN never use them.
+    Those compiled extensions are the #1 Colab failure: with no matching wheel,
+    pip source-builds them and HANGS for many minutes. So we (a) only ever take
+    prebuilt wheels (never compile), and (b) if they still aren't importable, drop
+    in lightweight stubs so the import chain succeeds. See unit-5 KNOWN_ISSUES.md.
     """
     try:
         import torch
@@ -202,24 +266,28 @@ def _unit_5_setup() -> None:
     cuda_v = (torch.version.cuda or "").replace(".", "")
     cuda_suffix = f"cu{cuda_v}" if cuda_v else "cpu"
 
-    print(f"  detected torch={torch_v} cuda={cuda_v or 'none'}")
-    print(f"  installing torch_geometric (+ optional scatter/sparse for {cuda_suffix})")
-
+    print(f"  detected torch={torch_v} cuda={cuda_v or 'none'} ({cuda_suffix})")
+    print("  installing torch_geometric (native scatter path)")
     _pip_install("torch_geometric")
 
-    # Optional accelerator extensions — PyG 2.4+ does not hard-require them.
-    # Try to install but don't fail the whole setup if wheels are unavailable.
+    # Best-effort prebuilt scatter/sparse wheels. --only-binary forbids the sdist
+    # source build (the hang); a miss just falls through to the stub below.
     try:
         _pip_install(
             "torch_scatter",
             "torch_sparse",
+            "--only-binary=:all:",
             "-f",
             f"https://data.pyg.org/whl/torch-{torch_v}+{cuda_suffix}.html",
         )
     except subprocess.CalledProcessError:
-        print("  WARN: torch_scatter/sparse wheels not available — continuing without")
+        print("  WARN: no matching torch_scatter/sparse wheels — will stub them")
 
-    _pip_install("torch-geometric-temporal")
+    # Guarantee the import chain resolves (real wheels OR stubs), then install
+    # temporal with --no-deps so pip does NOT re-drag the heavy extensions.
+    _ensure_scatter_sparse_importable()
+    _pip_install("--no-deps", "torch-geometric-temporal")
+    _verify_temporal_imports()
 
 
 __all__ = ["setup_unit"]

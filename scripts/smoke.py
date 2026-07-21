@@ -61,10 +61,24 @@ UNIT_IMPORTS = {
         ("h5py", "h5py", False),
         ("folium", "folium", True),
     ],
+    "4": [
+        ("osmnx", "osmnx", True),
+        ("networkx", "networkx", True),
+        ("geopandas", "geopandas", True),
+        ("shapely", "shapely", True),
+        ("pyproj", "pyproj", False),
+        ("rtree", "rtree", False),
+        ("scipy", "scipy", True),
+        ("gtfs_kit", "gtfs-kit", False),
+        ("folium", "folium", True),
+        ("mapclassify", "mapclassify", False),
+        ("branca", "branca", False),
+        ("pyarrow", "pyarrow", False),
+    ],
 }
 
 # Units not yet populated — fail loudly rather than silently "pass".
-UNPOPULATED = {"4", "5"}
+UNPOPULATED = {"5"}
 
 UNIT_DIR = {
     "1": "unit-1-graph-substrate",
@@ -93,8 +107,8 @@ def smoke(unit: str) -> int:
         version = getattr(mod, "__version__", "") if want_version else ""
         print(f"  ok  {friendly:<18}{version}")
 
-    # Hard gate: unit 1 needs the OSMnx v2 module layout.
-    if unit == "1" and not failures:
+    # Hard gate: units 1 and 4 need the OSMnx v2 module layout.
+    if unit in ("1", "4") and not failures:
         try:
             import osmnx as ox
 

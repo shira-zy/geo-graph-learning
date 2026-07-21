@@ -31,7 +31,9 @@ demo available to look ahead, but content may still change before we teach it.
 
 New here? Start with the [**course syllabus**](./SYLLABUS.md) and the
 [**Unit 0 orientation deck**](unit-0-course-intro/) (~15 min — how the whole
-course works).
+course works). The course ends with the [**closing deck**](unit-6-course-closing/)
+(~30 min, delivered once after Unit 5 — the arc recap and the before/after
+mirror).
 
 Lessons are published as tagged releases (`v-unit1`, `v-unit2`, …). The course
 repo is updated **during the course**, so sync your fork to pull new lessons and
